@@ -1,0 +1,19 @@
+{% extends 'simple_dict/base_screen.html' %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      {% if field.errors %}
+        <div class="alert alert-danger" role="alert">
+          {{field.errors}}
+        </div>
+      {% endif %}
+        <div class="mb-3">
+          {{field.label}}
+          {{field}}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+{% endblock %}

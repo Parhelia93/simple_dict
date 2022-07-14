@@ -1,0 +1,10 @@
+{% extends 'simple_dict/base_screen.html' %}
+
+{% block content %}
+
+      {% if word %}
+            <h1 class="mb-5">Search result: </h1>
+            {% include 'simple_dict/includes/card_detail.html' %}
+      {% endif %}
+
+{% endblock %}
