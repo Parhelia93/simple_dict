@@ -1,0 +1,7 @@
+{% extends 'simple_dict/base_screen.html' %}
+
+{% block content %}
+{% for user_word in user_words%}
+    {% include 'simple_dict/includes/userword_card_detail.html' %}
+{% endfor %}
+{% endblock %}

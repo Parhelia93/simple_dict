@@ -1,9 +1,9 @@
 <div class="card mb-4">
-<!--              <h5 class="card-header">{{post.date_pub}}</h5>-->
+              <h5 class="card-header">{{user_word.date_add}}</h5>
               <div class="card-body">
-                <h5 class="card-title">Слово - {{word.word}}</h5>
-                <h5 class="card-title">Перевод - {{word.translate}}</h5>
-                <p class="card-text">{{word.word_example}}</p>
+                <h5 class="card-title">Слово - {{user_word.word.word}}</h5>
+                <h5 class="card-title">Перевод - {{user_word.word.translate}}</h5>
+                <p class="card-text">{{user_word.word.word_example}}</p>
 <!--                <a href="#" class="btn btn-light">Add</a>-->
                   <form method="post">
                       {% csrf_token%}
@@ -14,6 +14,6 @@
 <!--                Tags:-->
 <!--                    {% for tag in post.tags.all %}-->
 <!--                        <a href="{{tag.get_absolute_url}}">{{tag.title}}</a>-->
-<!--                    {% endfor %}-->
+<!--                       {% endfor %}-->
 <!--                </div>-->
 </div>

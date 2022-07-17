@@ -7,10 +7,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth import logout
 
 
-def index(request):
-    return render(request, 'simple_dict/base_screen.html')
-
-
 class RegisterUser(View):
 
     def get(self, request):
@@ -30,13 +26,19 @@ class SearchWord(View):
 
     def get(self, request):
         search_query = request.GET.get('search', '')
-        search_word = None
         if search_query:
-            try:
-                search_word = ServerWord.objects.get(word__iexact=search_query)
-            except:
-                search_word = None
+            search_word = ServerWord.objects.filter(word__iexact=search_query).first()
+        else:
+            search_word = None
         return render(request, 'simple_dict/search_word.html', context={'word': search_word})
+
+    def post(self, request):
+        user = request.user
+        search_word = request.GET.get('search')
+        word = ServerWord.objects.get(word=search_word)
+        if not UserServerWord.objects.filter(word=word).filter(user=user):
+            UserServerWord.objects.create(word=word, user=user)
+        return redirect('search_word_url')
 
 
 class LoginUser(LoginView):
@@ -50,6 +52,15 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('search_word_url')
+
+
+class ShowUserDict(View):
+
+    def get(self,request):
+        user = request.user
+        user_words = UserServerWord.objects.filter(user=user)
+        return render(request, 'simple_dict/user_dict.html', context={'user_words': user_words})
+
 
 
 
