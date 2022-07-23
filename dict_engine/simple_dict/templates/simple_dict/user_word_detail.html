@@ -1,0 +1,14 @@
+{% extends 'simple_dict/base_screen.html' %}
+
+
+{% block content %}
+    <h1 class="mt-5">Слово - {{user_word.word}}</h1>
+
+    {% for word in user_word.userworddetail_set.all %}
+        <p>Перевод - {{word.translate}}</p>
+        <p>Пример - {{word.word_example}}</p>
+    {% endfor %}
+
+    <p>{{user_word.date_add}}</p>
+    <a href="{{user_word.get_update_url}}" class="btn btn-light">Update</a>
+{% endblock %}
