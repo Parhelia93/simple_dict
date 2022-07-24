@@ -109,6 +109,8 @@ class UpdateUserWord(View):
 
     def post(self, request, slug):
         user_word = UserWord.objects.get(slug=slug)
+        if request.POST:
+            print(request.POST)
         bounded_form = CreateUserWordForm(request.POST, instance=user_word)
         user_word_detail = user_word.userworddetail_set.all()
         UserWordDetailFormSet = modelformset_factory(UserWordDetail, form=CreateUserWordDetailForm, extra=0)
@@ -120,8 +122,8 @@ class UpdateUserWord(View):
             parent.save()
             for form in bounded_formset:
                 child = form.save(commit=False)
-                if child.user_word is None:
-                    child.user_word = parent
+                # if child.user_word is None:
+                child.user_word = parent
                 child.save()
             return redirect('user_dict_url')
         else:
